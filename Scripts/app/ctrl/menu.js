@@ -11,4 +11,4 @@
 	$scope.isActive = function (url) {
 		return url == $location.path();
 	}
-}]);   
+}]); 
