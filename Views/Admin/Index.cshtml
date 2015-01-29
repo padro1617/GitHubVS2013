@@ -1,0 +1,38 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>福委会问卷调查管理系统</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/admin.css" rel="stylesheet" />
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/angular-route.min.js"></script>
+    <script src="~/Scripts/angular-resource.min.js"></script>
+    <script src="~/Scripts/angular-ui/ui-bootstrap.min.js"></script>
+
+</head>
+<body ng-app="app">
+    <div class="container-fluid">
+
+        <div class="col-lg-2" ng-controller="MenuCtrl">
+            <div class="list-group">
+                <a href="#{{item.url}}" class="list-group-item" ng-class="{active:isActive(item.url)}" ng-repeat="item in menus">{{item.title}}</a>
+            </div>
+        </div>
+        <div class="col-lg-10">
+
+            <div ng-view>
+
+            </div>
+
+        </div>
+    </div>
+    @Scripts.Render( "~/bundles/app" )
+</body>
+</html>

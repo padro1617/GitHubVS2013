@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="deptId" />
+          </Key>
+          <Property Name="deptId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="deptName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="qusId" />
+          </Key>
+          <Property Name="qusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="queNo" Type="int" Nullable="false" />
+          <Property Name="qusTitle" Type="nvarchar" MaxLength="300" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Questionnaire">
+          <Key>
+            <PropertyRef Name="qsnId" />
+          </Key>
+          <Property Name="qsnId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="qusId" Type="int" Nullable="false" />
+          <Property Name="deptId" Type="int" Nullable="false" />
+          <Property Name="no1" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="no2" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="no3" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="deptId" Type="int" Nullable="false" />
+          <Property Name="userCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="userName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Function Name="QuestionnaireResultList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="QuestionResultList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="qusId" Type="int" Mode="In" />
+          <Parameter Name="deptId" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="AppModelStoreContainer">
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Questionnaire" EntityType="Self.Questionnaire" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="deptId" />
+            <PropertyRef Name="deptName" />
+          </Key>
+          <Property Name="deptId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="deptName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="qusId" />
+          </Key>
+          <Property Name="qusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="queNo" Type="Int32" Nullable="false" />
+          <Property Name="qusTitle" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Questionnaire">
+          <Key>
+            <PropertyRef Name="qsnId" />
+          </Key>
+          <Property Name="qsnId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="qusId" Type="Int32" Nullable="false" />
+          <Property Name="deptId" Type="Int32" Nullable="false" />
+          <Property Name="no1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="no2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="no3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="deptId" Type="Int32" Nullable="false" />
+          <Property Name="userCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="userName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="AppEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Department" EntityType="Self.Department" />
+          <EntitySet Name="Question" EntityType="Self.Question" />
+          <EntitySet Name="Questionnaire" EntityType="Self.Questionnaire" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <FunctionImport Name="QuestionnaireResultList" ReturnType="Collection(AppModel.QuestionnaireResultList_Result)" />
+          <FunctionImport Name="QuestionResultList" ReturnType="Collection(AppModel.QuestionResultList_Result)">
+            <Parameter Name="qusId" Mode="In" Type="Int32" />
+            <Parameter Name="deptId" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="QuestionnaireResultList_Result">
+          <Property Type="Int32" Name="userId" Nullable="false" />
+          <Property Type="Int32" Name="deptId" Nullable="false" />
+          <Property Type="String" Name="userCode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="userName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="no1" Nullable="true" />
+          <Property Type="Int32" Name="no2" Nullable="true" />
+          <Property Type="Int32" Name="no3" Nullable="false" />
+          <Property Type="Int32" Name="total" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="QuestionResultList_Result">
+          <Property Type="Int32" Name="userId" Nullable="false" />
+          <Property Type="Int32" Name="deptId" Nullable="false" />
+          <Property Type="String" Name="userCode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="userName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="no1" Nullable="true" />
+          <Property Type="Int32" Name="no2" Nullable="true" />
+          <Property Type="Int32" Name="no3" Nullable="false" />
+          <Property Type="Int32" Name="total" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AppModelStoreContainer" CdmEntityContainer="AppEntities">
+          <EntitySetMapping Name="Department">
+            <EntityTypeMapping TypeName="AppModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="deptId" ColumnName="deptId" />
+                <ScalarProperty Name="deptName" ColumnName="deptName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Question">
+            <EntityTypeMapping TypeName="AppModel.Question">
+              <MappingFragment StoreEntitySet="Question">
+                <ScalarProperty Name="qusId" ColumnName="qusId" />
+                <ScalarProperty Name="queNo" ColumnName="queNo" />
+                <ScalarProperty Name="qusTitle" ColumnName="qusTitle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questionnaire">
+            <EntityTypeMapping TypeName="AppModel.Questionnaire">
+              <MappingFragment StoreEntitySet="Questionnaire">
+                <ScalarProperty Name="qsnId" ColumnName="qsnId" />
+                <ScalarProperty Name="qusId" ColumnName="qusId" />
+                <ScalarProperty Name="deptId" ColumnName="deptId" />
+                <ScalarProperty Name="no1" ColumnName="no1" />
+                <ScalarProperty Name="no2" ColumnName="no2" />
+                <ScalarProperty Name="no3" ColumnName="no3" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="AppModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="deptId" ColumnName="deptId" />
+                <ScalarProperty Name="userCode" ColumnName="userCode" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="QuestionnaireResultList" FunctionName="AppModel.Store.QuestionnaireResultList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AppModel.QuestionnaireResultList_Result">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="deptId" ColumnName="deptId" />
+                <ScalarProperty Name="userCode" ColumnName="userCode" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="no1" ColumnName="no1" />
+                <ScalarProperty Name="no2" ColumnName="no2" />
+                <ScalarProperty Name="no3" ColumnName="no3" />
+                <ScalarProperty Name="total" ColumnName="total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="QuestionResultList" FunctionName="AppModel.Store.QuestionResultList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AppModel.QuestionResultList_Result">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="deptId" ColumnName="deptId" />
+                <ScalarProperty Name="userCode" ColumnName="userCode" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="no1" ColumnName="no1" />
+                <ScalarProperty Name="no2" ColumnName="no2" />
+                <ScalarProperty Name="no3" ColumnName="no3" />
+                <ScalarProperty Name="total" ColumnName="total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

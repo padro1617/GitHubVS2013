@@ -1,0 +1,32 @@
+﻿<div>
+    <form class="form-inline">
+        <div class="form-group">
+            <input type="text" class="form-control" ng-model="question.queNo" placeholder="问题编号">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" ng-model="question.qusTitle" placeholder="问题内容">
+        </div>
+        <button type="button" class="btn btn-success" ng-click="create()">新增</button>
+    </form>
+</div>
+<div class="table-responsive">
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <th>问题编号</th>
+                <th>问题内容</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="info in questions">
+                <td>{{info.queNo}}</td>
+                <td>{{info.qusTitle}}</td>
+                <td>
+                    <button class="btn btn-xs btn-info" ng-click="edit(info)">编辑</button>
+                    <button class="btn btn-xs btn-danger" ng-click="delete(info)">删除</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
