@@ -58,10 +58,9 @@
         <EntityType Name="Department">
           <Key>
             <PropertyRef Name="deptId" />
-            <PropertyRef Name="deptName" />
           </Key>
           <Property Name="deptId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="deptName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="deptName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Question">
           <Key>

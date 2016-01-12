@@ -5,9 +5,9 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="c2e6ce577dbf4fa3b918b96e0ed48a4e" Name="Diagram1">
-        <EntityTypeShape EntityType="AppModel.Department" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="AppModel.Question" Width="1.5" PointX="6.125" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="AppModel.Questionnaire" Width="1.5" PointX="5" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="AppModel.Department" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AppModel.Question" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AppModel.Questionnaire" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="AppModel.User" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
