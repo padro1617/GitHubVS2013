@@ -238,6 +238,7 @@
     <Content Include="Scripts\app\ctrl\user.js" />
     <Content Include="Scripts\app\ctrl\department.js" />
     <Content Include="Scripts\app\ctrl\menu.js" />
+    <Content Include="Scripts\app\info.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
@@ -246,6 +247,8 @@
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Vue\vue.js" />
+    <Content Include="Scripts\Vue\vue.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="tmpl\question.html" />
     <Content Include="tmpl\questionnaire.html" />
