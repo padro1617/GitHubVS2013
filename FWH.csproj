@@ -247,6 +247,8 @@
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Vue\vue-resource.js" />
+    <Content Include="Scripts\Vue\vue-resource.min.js" />
     <Content Include="Scripts\Vue\vue.js" />
     <Content Include="Scripts\Vue\vue.min.js" />
     <Content Include="Scripts\_references.js" />

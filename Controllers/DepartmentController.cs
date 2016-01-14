@@ -14,26 +14,43 @@ namespace FWH.Controllers
 {
     public class DepartmentController : ApiController
     {
-        private AppEntities db = new AppEntities();
+        private AppEntities db =null;
+        //private AppEntities db = new AppEntities();
 
         // GET api/Department
-        public IQueryable<Department> GetDepartment()
+        public IQueryable<Department> GetDepartment_bb()
         {
+            if (db == null)
+            {
+                return null;
+            }
             return db.Department;
         }
-
-        // GET api/Department/5
         [ResponseType(typeof(Department))]
         public IHttpActionResult GetDepartment(int id)
         {
-            Department department = db.Department.Find(id);
-            if (department == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(department);
+            var list = new List<Department>();
+            list.Add(new Department { deptId = 1, deptName = "技术部" });
+            list.Add(new Department { deptId = 2, deptName = "销售部门" });
+            return Ok(list);
         }
+
+        //// GET api/Department/5
+        ////[ResponseType(typeof(Department))]
+        //public IHttpActionResult GetDepartment_aa(int id)
+        //{
+        //    if (db == null)
+        //    {
+        //        return null;
+        //    }
+        //    Department department = db.Department.Find(id);
+        //    if (department == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return Ok(department);
+        //}
 
         // PUT api/Department/5
         public IHttpActionResult PutDepartment(int id, Department department)
