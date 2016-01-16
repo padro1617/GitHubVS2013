@@ -138,6 +138,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ActiveController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -230,6 +231,7 @@
       <LastGenOutput>App.cs</LastGenOutput>
     </Content>
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
+    <Content Include="Scripts\app\active.js" />
     <Content Include="Scripts\app\app.js" />
     <Content Include="Scripts\app\ctrl\qsreport.js" />
     <Content Include="Scripts\app\ctrl\report.js" />
@@ -276,6 +278,7 @@
     <Content Include="Views\Shared\_Admin.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Info\Index.cshtml" />
+    <Content Include="Views\Active\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

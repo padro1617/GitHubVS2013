@@ -12,7 +12,7 @@ var app = new Vue({
     compiled: function () {
         var self = this;
         //加载部门
-        depresource.get({id:1}).then(function (response) {
+        depresource.get({ id: 1 }).then(function (response) {
             // set data on vm
             self.$data.depitems = response.data;
         }, function (error) {
@@ -22,17 +22,17 @@ var app = new Vue({
         });
     },
     data: {
-        v:{
+        v: {
             f_relative: '选择关系',
             f_depname: '选择部门',
             f_depid: 0
         },
-        depitems:[],
+        depitems: [],
         //紧急联系人
         relativeitems: [
-            {text: '亲属'},
-            {text: '邻居'},
-            {text: '朋友'}
+            { text: '亲属' },
+            { text: '邻居' },
+            { text: '朋友' }
         ]
     },
     methods: {
@@ -40,7 +40,7 @@ var app = new Vue({
             this.$data.v.f_depname = dep.deptName;
             this.$data.v.f_depid = dep.deptId;
         },
-        selectrelpfn:function(rel){
+        selectrelpfn: function (rel) {
             this.$data.v.f_relative = rel.text;
         }
 

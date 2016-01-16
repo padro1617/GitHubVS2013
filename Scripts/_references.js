@@ -5,6 +5,7 @@
 /// <reference path="angular-route.js" />
 /// <reference path="angular-ui/ui-bootstrap.js" />
 /// <reference path="angular-ui/ui-bootstrap-tpls.js" />
+/// <reference path="app/active.js" />
 /// <reference path="app/app.js" />
 /// <reference path="app/ctrl/department.js" />
 /// <reference path="app/ctrl/menu.js" />
