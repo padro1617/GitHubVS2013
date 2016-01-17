@@ -31,6 +31,7 @@ namespace FWH.DataSource
         public virtual DbSet<Question> Question { get; set; }
         public virtual DbSet<Questionnaire> Questionnaire { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<ActiveInfo> ActiveInfo { get; set; }
     
         public virtual ObjectResult<QuestionnaireResultList_Result> QuestionnaireResultList()
         {

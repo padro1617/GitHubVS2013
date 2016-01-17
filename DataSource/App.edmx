@@ -5,6 +5,20 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="AppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“Test.dbo.ActiveInfo”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="ActiveInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="userId" />
+            <PropertyRef Name="isJoin" />
+            <PropertyRef Name="groupId" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="isJoin" Type="bit" Nullable="false" />
+          <Property Name="groupId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Department">
           <Key>
             <PropertyRef Name="deptId" />
@@ -39,6 +53,12 @@
           <Property Name="deptId" Type="int" Nullable="false" />
           <Property Name="userCode" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="userName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="parentId" Type="int" />
+          <Property Name="sex" Type="nvarchar" MaxLength="10" />
+          <Property Name="isChild" Type="bit" />
+          <Property Name="relative" Type="nvarchar" MaxLength="20" />
+          <Property Name="relativePhpne" Type="nvarchar" MaxLength="50" />
+          <Property Name="remark" Type="nvarchar" MaxLength="80" />
         </EntityType>
         <Function Name="QuestionnaireResultList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="QuestionResultList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -50,6 +70,14 @@
           <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Questionnaire" EntityType="Self.Questionnaire" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ActiveInfo" EntityType="Self.ActiveInfo" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ActiveInfo].[Id] AS [Id], 
+    [ActiveInfo].[userId] AS [userId], 
+    [ActiveInfo].[isJoin] AS [isJoin], 
+    [ActiveInfo].[groupId] AS [groupId]
+    FROM [dbo].[ActiveInfo] AS [ActiveInfo]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -89,6 +117,12 @@
           <Property Name="deptId" Type="Int32" Nullable="false" />
           <Property Name="userCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="userName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="parentId" Type="Int32" Nullable="false" />
+          <Property Name="sex" Type="String" Nullable="false" />
+          <Property Name="isChild" Type="Boolean" Nullable="false" />
+          <Property Name="relative" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="relativePhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="remark" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="AppEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Department" EntityType="Self.Department" />
@@ -100,6 +134,7 @@
             <Parameter Name="qusId" Mode="In" Type="Int32" />
             <Parameter Name="deptId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="ActiveInfo" EntityType="AppModel.ActiveInfo" />
         </EntityContainer>
         <ComplexType Name="QuestionnaireResultList_Result">
           <Property Type="Int32" Name="userId" Nullable="false" />
@@ -121,6 +156,18 @@
           <Property Type="Int32" Name="no3" Nullable="false" />
           <Property Type="Int32" Name="total" Nullable="true" />
         </ComplexType>
+        <EntityType Name="ActiveInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="userId" />
+            <PropertyRef Name="isJoin" />
+            <PropertyRef Name="groupId" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="isJoin" Type="Boolean" Nullable="false" />
+          <Property Name="groupId" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -159,6 +206,9 @@
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="AppModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="relativePhone" ColumnName="relativePhpne" />
+                <ScalarProperty Name="relative" ColumnName="relative" />
                 <ScalarProperty Name="userId" ColumnName="userId" />
                 <ScalarProperty Name="deptId" ColumnName="deptId" />
                 <ScalarProperty Name="userCode" ColumnName="userCode" />
@@ -194,6 +244,16 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="ActiveInfo">
+            <EntityTypeMapping TypeName="AppModel.ActiveInfo">
+              <MappingFragment StoreEntitySet="ActiveInfo">
+                <ScalarProperty Name="groupId" ColumnName="groupId" />
+                <ScalarProperty Name="isJoin" ColumnName="isJoin" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

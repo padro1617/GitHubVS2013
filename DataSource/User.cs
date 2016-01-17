@@ -18,5 +18,11 @@ namespace FWH.DataSource
         public int deptId { get; set; }
         public string userCode { get; set; }
         public string userName { get; set; }
+        public int parentId { get; set; }
+        public string sex { get; set; }
+        public bool isChild { get; set; }
+        public string relative { get; set; }
+        public string relativePhone { get; set; }
+        public string remark { get; set; }
     }
 }

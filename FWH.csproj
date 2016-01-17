@@ -146,6 +146,9 @@
     <Compile Include="Controllers\QuestionController.cs" />
     <Compile Include="Controllers\QuestionnaireController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="DataSource\ActiveInfo.cs">
+      <DependentUpon>App.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataSource\App.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

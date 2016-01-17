@@ -12,10 +12,11 @@ namespace FWH.DataSource
     using System;
     using System.Collections.Generic;
     
-    public partial class Question
+    public partial class ActiveInfo
     {
-        public int qusId { get; set; }
-        public int queNo { get; set; }
-        public string qusTitle { get; set; }
+        public int Id { get; set; }
+        public int userId { get; set; }
+        public bool isJoin { get; set; }
+        public int groupId { get; set; }
     }
 }

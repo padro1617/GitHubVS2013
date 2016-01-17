@@ -1,6 +1,7 @@
 ﻿Vue.config.debug = true;
 
 var depresource = Vue.resource('/api/department{/id}');
+var userresource = Vue.resource('/api/user{/id}');
 var app = new Vue({
     http: {
         root: '/root',
@@ -29,11 +30,13 @@ var app = new Vue({
         },
         depitems: [],
         //紧急联系人
-        relativeitems: [
-            { text: '亲属' },
-            { text: '邻居' },
-            { text: '朋友' }
-        ]
+        e:{
+            relativeitems: [
+                { text: '亲属' },
+                { text: '邻居' },
+                { text: '朋友' }
+            ]
+        }
     },
     methods: {
         selectdepfn: function (dep) {
