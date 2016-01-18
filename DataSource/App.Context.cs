@@ -30,8 +30,8 @@ namespace FWH.DataSource
         public virtual DbSet<Department> Department { get; set; }
         public virtual DbSet<Question> Question { get; set; }
         public virtual DbSet<Questionnaire> Questionnaire { get; set; }
-        public virtual DbSet<User> User { get; set; }
         public virtual DbSet<ActiveInfo> ActiveInfo { get; set; }
+        public virtual DbSet<User> User { get; set; }
     
         public virtual ObjectResult<QuestionnaireResultList_Result> QuestionnaireResultList()
         {
@@ -49,6 +49,53 @@ namespace FWH.DataSource
                 new ObjectParameter("deptId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<QuestionResultList_Result>("QuestionResultList", qusIdParameter, deptIdParameter);
+        }
+    
+        public virtual ObjectResult<UserResultList_Result> UserResultList()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UserResultList_Result>("UserResultList");
+        }
+    
+        public virtual int Active_Nh_Delete(Nullable<int> userId, Nullable<int> groupId, ObjectParameter result)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("userId", userId) :
+                new ObjectParameter("userId", typeof(int));
+    
+            var groupIdParameter = groupId.HasValue ?
+                new ObjectParameter("groupId", groupId) :
+                new ObjectParameter("groupId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Active_Nh_Delete", userIdParameter, groupIdParameter, result);
+        }
+    
+        public virtual int Active_Nh_Insert(Nullable<int> userId, Nullable<int> parentId, string userName, string sex, string isChild, Nullable<int> groupId)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("userId", userId) :
+                new ObjectParameter("userId", typeof(int));
+    
+            var parentIdParameter = parentId.HasValue ?
+                new ObjectParameter("parentId", parentId) :
+                new ObjectParameter("parentId", typeof(int));
+    
+            var userNameParameter = userName != null ?
+                new ObjectParameter("userName", userName) :
+                new ObjectParameter("userName", typeof(string));
+    
+            var sexParameter = sex != null ?
+                new ObjectParameter("sex", sex) :
+                new ObjectParameter("sex", typeof(string));
+    
+            var isChildParameter = isChild != null ?
+                new ObjectParameter("isChild", isChild) :
+                new ObjectParameter("isChild", typeof(string));
+    
+            var groupIdParameter = groupId.HasValue ?
+                new ObjectParameter("groupId", groupId) :
+                new ObjectParameter("groupId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Active_Nh_Insert", userIdParameter, parentIdParameter, userNameParameter, sexParameter, isChildParameter, groupIdParameter);
         }
     }
 }

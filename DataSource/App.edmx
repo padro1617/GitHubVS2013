@@ -55,16 +55,30 @@
           <Property Name="userName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="parentId" Type="int" />
           <Property Name="sex" Type="nvarchar" MaxLength="10" />
-          <Property Name="isChild" Type="bit" />
+          <Property Name="isChild" Type="nvarchar" MaxLength="10" />
           <Property Name="relative" Type="nvarchar" MaxLength="20" />
-          <Property Name="relativePhpne" Type="nvarchar" MaxLength="50" />
-          <Property Name="remark" Type="nvarchar" MaxLength="80" />
+          <Property Name="relativePhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="remark" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <Function Name="Active_Nh_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="int" Mode="In" />
+          <Parameter Name="groupId" Type="int" Mode="In" />
+          <Parameter Name="result" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="Active_Nh_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="int" Mode="In" />
+          <Parameter Name="parentId" Type="int" Mode="In" />
+          <Parameter Name="userName" Type="nvarchar" Mode="In" />
+          <Parameter Name="sex" Type="nvarchar" Mode="In" />
+          <Parameter Name="isChild" Type="nvarchar" Mode="In" />
+          <Parameter Name="groupId" Type="int" Mode="In" />
+        </Function>
         <Function Name="QuestionnaireResultList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="QuestionResultList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="qusId" Type="int" Mode="In" />
           <Parameter Name="deptId" Type="int" Mode="In" />
         </Function>
+        <Function Name="UserResultList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="AppModelStoreContainer">
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
@@ -109,32 +123,32 @@
           <Property Name="no2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="no3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="userId" />
-          </Key>
-          <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="deptId" Type="Int32" Nullable="false" />
-          <Property Name="userCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="userName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="parentId" Type="Int32" Nullable="false" />
-          <Property Name="sex" Type="String" Nullable="false" />
-          <Property Name="isChild" Type="Boolean" Nullable="false" />
-          <Property Name="relative" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="relativePhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="remark" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityContainer Name="AppEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Department" EntityType="Self.Department" />
           <EntitySet Name="Question" EntityType="Self.Question" />
           <EntitySet Name="Questionnaire" EntityType="Self.Questionnaire" />
-          <EntitySet Name="User" EntityType="Self.User" />
           <FunctionImport Name="QuestionnaireResultList" ReturnType="Collection(AppModel.QuestionnaireResultList_Result)" />
           <FunctionImport Name="QuestionResultList" ReturnType="Collection(AppModel.QuestionResultList_Result)">
             <Parameter Name="qusId" Mode="In" Type="Int32" />
             <Parameter Name="deptId" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="ActiveInfo" EntityType="AppModel.ActiveInfo" />
+          <EntitySet Name="User" EntityType="AppModel.User" />
+          <FunctionImport Name="UserResultList" ReturnType="Collection(AppModel.UserResultList_Result)" />
+          <FunctionImport Name="Active_Nh_Delete">
+            <Parameter Name="userId" Mode="In" Type="Int32" />
+            <Parameter Name="groupId" Mode="In" Type="Int32" />
+            <Parameter Name="result" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Active_Nh_Insert">
+            <Parameter Name="userId" Mode="In" Type="Int32" />
+            <Parameter Name="parentId" Mode="In" Type="Int32" />
+            <Parameter Name="userName" Mode="In" Type="String" />
+            <Parameter Name="sex" Mode="In" Type="String" />
+            <Parameter Name="isChild" Mode="In" Type="String" />
+            <Parameter Name="groupId" Mode="In" Type="Int32" />
+          </FunctionImport>
+       
         </EntityContainer>
         <ComplexType Name="QuestionnaireResultList_Result">
           <Property Type="Int32" Name="userId" Nullable="false" />
@@ -168,6 +182,37 @@
           <Property Name="isJoin" Type="Boolean" Nullable="false" />
           <Property Name="groupId" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="deptId" Type="Int32" Nullable="false" />
+          <Property Name="userCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="userName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="parentId" Type="Int32" />
+          <Property Name="sex" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="isChild" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="relative" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="relativePhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <ComplexType Name="UserResultList_Result">
+          <Property Type="Int32" Name="userId" Nullable="false" />
+          <Property Type="Int32" Name="deptId" Nullable="false" />
+          <Property Type="String" Name="userCode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="userName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="parentId" Nullable="false" />
+          <Property Type="String" Name="sex" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="isChild" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="relative" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="relativePhone" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="remark" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="deptName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="actionId" Nullable="false" />
+          <Property Type="Boolean" Name="isJoin" Nullable="false" />
+          <Property Type="Int32" Name="groupId" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -201,19 +246,6 @@
                 <ScalarProperty Name="no2" ColumnName="no2" />
                 <ScalarProperty Name="no3" ColumnName="no3" />
               </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="User">
-            <EntityTypeMapping TypeName="AppModel.User">
-              <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="remark" ColumnName="remark" />
-                <ScalarProperty Name="relativePhone" ColumnName="relativePhpne" />
-                <ScalarProperty Name="relative" ColumnName="relative" />
-                <ScalarProperty Name="userId" ColumnName="userId" />
-                <ScalarProperty Name="deptId" ColumnName="deptId" />
-                <ScalarProperty Name="userCode" ColumnName="userCode" />
-                <ScalarProperty Name="userName" ColumnName="userName" />
-                </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="QuestionnaireResultList" FunctionName="AppModel.Store.QuestionnaireResultList">
@@ -254,6 +286,44 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="AppModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="relativePhone" ColumnName="relativePhone" />
+                <ScalarProperty Name="relative" ColumnName="relative" />
+                <ScalarProperty Name="isChild" ColumnName="isChild" />
+                <ScalarProperty Name="sex" ColumnName="sex" />
+                <ScalarProperty Name="parentId" ColumnName="parentId" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="userCode" ColumnName="userCode" />
+                <ScalarProperty Name="deptId" ColumnName="deptId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="UserResultList" FunctionName="AppModel.Store.UserResultList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AppModel.UserResultList_Result">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="deptId" ColumnName="deptId" />
+                <ScalarProperty Name="userCode" ColumnName="userCode" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="parentId" ColumnName="parentId" />
+                <ScalarProperty Name="sex" ColumnName="sex" />
+                <ScalarProperty Name="isChild" ColumnName="isChild" />
+                <ScalarProperty Name="relative" ColumnName="relative" />
+                <ScalarProperty Name="relativePhone" ColumnName="relativePhone" />
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="deptName" ColumnName="deptName" />
+                <ScalarProperty Name="actionId" ColumnName="actionId" />
+                <ScalarProperty Name="isJoin" ColumnName="isJoin" />
+                <ScalarProperty Name="groupId" ColumnName="groupId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Active_Nh_Delete" FunctionName="AppModel.Store.Active_Nh_Delete" />
+          <FunctionImportMapping FunctionImportName="Active_Nh_Insert" FunctionName="AppModel.Store.Active_Nh_Insert" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
