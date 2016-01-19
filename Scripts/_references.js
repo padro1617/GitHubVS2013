@@ -23,3 +23,5 @@
 /// <reference path="vue/vue.js" />
 /// <reference path="vue/vue-resource.js" />
 /// <reference path="underscore-min.js" />
+/// <reference path="select2/js/select2.full.js" />
+/// <reference path="select2/js/select2.js" />

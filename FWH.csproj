@@ -256,6 +256,12 @@
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\select2\css\select2.css" />
+    <Content Include="Scripts\select2\css\select2.min.css" />
+    <Content Include="Scripts\select2\js\select2.full.js" />
+    <Content Include="Scripts\select2\js\select2.full.min.js" />
+    <Content Include="Scripts\select2\js\select2.js" />
+    <Content Include="Scripts\select2\js\select2.min.js" />
     <Content Include="Scripts\underscore-min.js" />
     <Content Include="Scripts\Vue\vue-resource.js" />
     <Content Include="Scripts\Vue\vue-resource.min.js" />
@@ -287,6 +293,7 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Info\Index.cshtml" />
     <Content Include="Views\Active\Index.cshtml" />
+    <Content Include="Scripts\underscore-min.map" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
